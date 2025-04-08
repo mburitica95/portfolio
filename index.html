@@ -1,61 +1,258 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ lang: 'en' }" x-init="lang = localStorage.getItem('lang') || 'en'" x-bind:lang="lang">
+<html lang="en" x-data="{ lang: 'en', menuOpen: false }" x-init="lang = localStorage.getItem('lang') || 'en'" x-bind:lang="lang">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Miguel Buriticá | Portfolio</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Miguel Buriticá Osorno | Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/alpinejs" defer></script>
-  <style>
-    body {
-      background: linear-gradient(to right, #e0f2f1, #f1f8e9);
-    }
-  </style>
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
-<body class="text-gray-800 font-sans">
+<body class="text-gray-300 font-mono bg-[#0a192f]">
+
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0a192f]/70 backdrop-blur-sm border-b border-gray-800">
+      <nav class="flex items-center justify-between px-6 lg:px-24 py-4">
+        <a href="#hero" class="text-teal-400 font-bold text-lg hover:text-white transition">Miguel Buriticá</a>
+        <div class="sm:hidden">
+          <button @click="menuOpen = !menuOpen" class="text-teal-300 hover:text-white focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+        <ul class="hidden sm:flex space-x-6 text-sm">
+          <li><a href="#about" class="hover:text-teal-400 transition" x-text="lang === 'en' ? 'About' : 'Sobre mí'"></a></li>
+          <li><a href="#projects" class="hover:text-teal-400 transition" x-text="lang === 'en' ? 'Projects' : 'Proyectos'"></a></li>
+          <li><a href="#skills" class="hover:text-teal-400 transition" x-text="lang === 'en' ? 'Skills' : 'Habilidades'"></a></li>
+          <li><a href="#contact" class="hover:text-teal-400 transition" x-text="lang === 'en' ? 'Contact' : 'Contacto'"></a></li>
+        </ul>
+      </nav>
+      <!-- Mobile Menu -->
+      <div class="sm:hidden px-6 pt-2 pb-4" x-show="menuOpen" x-transition>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#about" class="block hover:text-teal-400 transition" x-text="lang === 'en' ? 'About' : 'Sobre mí'"></a></li>
+          <li><a href="#projects" class="block hover:text-teal-400 transition" x-text="lang === 'en' ? 'Projects' : 'Proyectos'"></a></li>
+          <li><a href="#skills" class="block hover:text-teal-400 transition" x-text="lang === 'en' ? 'Skills' : 'Habilidades'"></a></li>
+          <li><a href="#contact" class="block hover:text-teal-400 transition" x-text="lang === 'en' ? 'Contact' : 'Contacto'"></a></li>
+        </ul>
+      </div>
+    </header>
 
   <!-- Language Toggle -->
-  <div class="flex justify-end p-4">
-    <button class="text-sm text-teal-600 hover:underline" @click="lang = lang === 'en' ? 'es' : 'en'; localStorage.setItem('lang', lang)">
-      <template x-if="lang === 'en'">Switch to Spanish</template>
-      <template x-if="lang === 'es'">Cambiar a Inglés</template>
+  <div class="flex justify-end p-4 relative z-10 mt-16">
+    <button class="px-4 py-1 text-sm rounded-full border border-teal-500 text-teal-300 bg-[#112240] transition duration-300 shadow-md shadow-teal-500/10 hover:bg-teal-400 hover:text-white hover:shadow-lg hover:shadow-teal-500/40 hover:scale-110 transform" @click="lang = lang === 'en' ? 'es' : 'en'; localStorage.setItem('lang', lang)">
+      <template x-if="lang === 'en'">
+        <span>Switch to Spanish</span>
+      </template>
+      <template x-if="lang === 'es'">
+        <span>Cambiar a Inglés</span>
+      </template>
     </button>
   </div>
 
   <!-- Hero -->
-  <section class="min-h-screen flex items-center justify-center px-6 lg:px-24">
+  <section class="min-h-[80vh] flex items-center justify-center px-6 lg:px-24">
     <div class="max-w-5xl w-full flex flex-col md:flex-row items-center gap-10">
 
       <!-- Foto -->
-      <div class="w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden shadow-lg" data-aos="fade-right">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Miguel Buriticá" class="w-full h-full object-cover">
+      <div class="w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden shadow-lg border-4 border-teal-400" data-aos="fade-right">
+        <img src="./assets/images/miguel-buritica-osorno.jpg" alt="Miguel Buriticá" class="w-full h-full object-cover">
       </div>
 
       <!-- Info -->
       <div data-aos="fade-left">
-        <p class="text-teal-500 text-sm font-mono mb-2" x-text="lang === 'en' ? 'Hi, my name is' : 'Hola, mi nombre es'"></p>
-        <h1 class="text-4xl sm:text-6xl font-bold text-gray-900 leading-tight mb-4">
-          Miguel Buriticá.
+        <p class="text-teal-400 text-sm mb-2" x-text="lang === 'en' ? 'Hi, my name is' : 'Hola, mi nombre es'"></p>
+        <h1 class="text-4xl sm:text-6xl font-bold text-white leading-tight mb-4">
+          Miguel Buriticá Osorno
         </h1>
-        <h2 class="text-2xl sm:text-4xl text-gray-700 font-semibold mb-6" x-text="lang === 'en' ? 'Systems Engineer and WordPress Developer.' : 'Ingeniero de sistemas y desarrollador WordPress.'"></h2>
-        <p class="text-gray-600 text-lg max-w-xl mb-8" x-text="lang === 'en' 
+        <h2 class="text-2xl sm:text-4xl text-teal-300 font-semibold mb-6" x-text="lang === 'en' ? 'Systems Engineer and WordPress Developer.' : 'Ingeniero de sistemas y desarrollador WordPress.'"></h2>
+        <p class="text-gray-400 text-lg max-w-xl mb-8" x-text="lang === 'en' 
           ? 'Passionate about building modern, accessible, and optimized web solutions. Over 7 years of experience with WordPress, PHP, Tailwind, React, Git, and more.' 
           : 'Apasionado por crear soluciones web modernas, accesibles y optimizadas. Con más de 7 años de experiencia en proyectos con WordPress, PHP, Tailwind, React, Git, y más.'">
         </p>
-        <div class="flex gap-4">
-          <a href="https://github.com/mburitica95" target="_blank" class="text-teal-500 hover:underline">GitHub</a>
-          <a href="https://www.linkedin.com/in/miguel-a-buritica-osorno/" target="_blank" class="text-teal-500 hover:underline">LinkedIn</a>
-          <a href="#contacto" class="text-teal-500 hover:underline" x-text="lang === 'en' ? 'Contact Me' : 'Contáctame'"></a>
+        <div class="flex gap-6">
+          <a href="https://github.com/mburitica95" target="_blank" class="text-teal-400 hover:underline">GitHub</a>
+          <a href="https://www.linkedin.com/in/miguel-a-buritica-osorno/" target="_blank" class="text-teal-400 hover:underline">LinkedIn</a>
+          <a href="#contacto" class="text-teal-400 hover:underline" x-text="lang === 'en' ? 'Contact Me' : 'Contáctame'"></a>
         </div>
       </div>
 
     </div>
   </section>
 
+    <!-- About Section -->
+    <section class="px-6 lg:px-24 py-20 bg-[#0a192f]" id="about" data-aos="fade-up">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl text-white font-bold mb-6" x-text="lang === 'en' ? 'About Me' : 'Sobre mí'"></h2>
+        <p class="text-gray-400 text-lg leading-relaxed" x-text="lang === 'en' 
+          ? 'I am a web developer with over 7 years of experience creating custom WordPress solutions, including themes, child themes, plugins, Gutenberg blocks, and WooCommerce components. I have worked with agile methodologies and collaborated with teams through GitHub and Bitbucket. My tech stack includes PHP, JavaScript, HTML5, Sass, Tailwind, React, Gulp, and Git. I’m constantly learning and improving, and I also have basic knowledge of Figma for UI/UX collaboration.' 
+          : 'Soy un desarrollador web con más de 7 años de experiencia creando soluciones personalizadas en WordPress, incluyendo temas, temas hijos, plugins, bloques de Gutenberg y componentes de WooCommerce. He trabajado con metodologías ágiles y colaborado con equipos mediante GitHub y Bitbucket. Mi stack tecnológico incluye PHP, JavaScript, HTML5, Sass, Tailwind, React, Gulp y Git. Estoy en constante aprendizaje y mejora, y también tengo conocimientos básicos en Figma para colaboración en diseño UI/UX.'">
+        </p>
+      </div>
+    </section>
+
+  <!-- Experience Section -->
+  <section class="px-6 lg:px-24 py-20 bg-[#0a192f]" id="experience" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl text-white font-bold mb-12 text-center" x-text="lang === 'en' ? 'Experience' : 'Experiencia'"></h2>
+      <div class="grid md:grid-cols-2 gap-10">
+        <div class="bg-[#112240] p-6 rounded-xl shadow-md hover:shadow-teal-500/20 transition-transform transform hover:-translate-y-1 duration-300">
+          <h3 class="text-xl text-teal-300 font-semibold mb-2">Cafeto Software</h3>
+          <p class="text-sm text-teal-400 mb-1" x-text="lang === 'en' ? 'Web Developer (2018 - 2024)' : 'Desarrollador Web (2018 - 2024)'"></p>
+          <p class="text-gray-400 text-sm leading-relaxed" x-text="lang === 'en' 
+            ? 'Worked on WordPress-based projects using PHP, Sass, Tailwind, Gulp, and Git. Created and optimized custom themes and plugins with a strong focus on performance, accessibility, and responsive design.' 
+            : 'Trabajé en proyectos basados en WordPress usando PHP, Sass, Tailwind, Gulp y Git. Creación y optimización de temas y plugins personalizados con un fuerte enfoque en el rendimiento, accesibilidad y diseño responsivo.'"></p>
+        </div>
+        <div class="bg-[#112240] p-6 rounded-xl shadow-md hover:shadow-teal-500/20 transition-transform transform hover:-translate-y-1 duration-300">
+          <h3 class="text-xl text-teal-300 font-semibold mb-2">EducateMe Marketing Inc., DBA Ventrix Advertising</h3>
+          <p class="text-sm text-teal-400 mb-1" x-text="lang === 'en' ? 'Web Developer (2024 - Present)' : 'Desarrollador Web (2024 - Presente)'"></p>
+          <p class="text-gray-400 text-sm leading-relaxed" x-text="lang === 'en' 
+            ? 'Continued WordPress development with focus on Gutenberg blocks, ACF, Customizer, and plugin customization. Collaborated with international teams and led improvements in UI/UX and web performance.' 
+            : 'Continué el desarrollo en WordPress con enfoque en bloques Gutenberg, ACF, Customizer y personalización de plugins. Colaboración con equipos internacionales y liderazgo en mejoras de UI/UX y rendimiento web.'"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Projects Section -->
+    <section class="px-6 lg:px-24 py-20 bg-[#0a192f]" id="projects" data-aos="fade-up">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl text-white font-bold mb-12 text-center" x-text="lang === 'en' ? 'Featured Projects' : 'Proyectos Destacados'"></h2>
+        <div class="grid md:grid-cols-2 gap-10">
+
+                  <!-- Legios Part Store -->
+        <div class="bg-[#112240] p-6 rounded-xl shadow-md hover:shadow-lg hover:shadow-teal-500/30 transition-transform transform hover:-translate-y-1 duration-300">
+          <h3 class="text-xl text-teal-300 font-semibold mb-2">Legios Part Store</h3>
+          <p class="text-gray-400 text-sm mb-4" x-text="lang === 'en' 
+            ? 'Committed to top-tier customer service and providing all the parts customers need to complete their special projects. Developed using WordPress, Sass, WooCommerce, ACF, Git & Bitbucket.'
+            : 'Comprometidos con brindar el mejor servicio al cliente y ofrecer todas las piezas necesarias para completar sus proyectos. Desarrollado con WordPress, Sass, WooCommerce, ACF, Git y Bitbucket.'">
+          </p>
+          <p class="text-sm text-teal-400 mb-2" x-text="lang === 'en' ? 'Role: Full Stack Developer - Frontend' : 'Rol: Desarrollador Full Stack - Frontend'"></p>
+          <a href="https://legionpartstore.com/" target="_blank" class="text-teal-400 hover:underline text-sm" x-text="lang === 'en' ? 'View Project' : 'Ver Proyecto'"></a>
+        </div>
+
+        <!-- Mi Mascotapp -->
+        <div class="bg-[#112240] p-6 rounded-xl shadow-md hover:shadow-lg hover:shadow-teal-500/30 transition-transform transform hover:-translate-y-1 duration-300">
+          <h3 class="text-xl text-teal-300 font-semibold mb-2">Mi Mascotapp</h3>
+          <p class="text-gray-400 text-sm mb-4" x-text="lang === 'en' 
+            ? 'Browse services and products for your pets, with easy filtering and direct contact options. Built using WordPress, Sass, WooCommerce, ACF, Git & Bitbucket.'
+            : 'Explora servicios y productos para tus mascotas, con filtros fáciles y contacto directo. Desarrollado con WordPress, Sass, WooCommerce, ACF, Git y Bitbucket.'">
+          </p>
+          <p class="text-sm text-teal-400 mb-2" x-text="lang === 'en' ? 'Role: Full Stack Developer - Frontend' : 'Rol: Desarrollador Full Stack - Frontend'"></p>
+          <a href="https://mimascotapp.com/" target="_blank" class="text-teal-400 hover:underline text-sm" x-text="lang === 'en' ? 'View Project' : 'Ver Proyecto'"></a>
+        </div>
+
+        </div>
+      </div>
+    </section>
+
+
+      <!-- Skills Section -->
+  <section class="px-6 lg:px-24 py-20 bg-[#0a192f]" id="skills" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl text-white font-bold mb-12" x-text="lang === 'en' ? 'Skills' : 'Habilidades'"></h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-sm">
+        <template x-if="lang === 'en'">
+          <div class="contents">
+            <span class="skill-tag">WordPress</span>
+            <span class="skill-tag">PHP</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Tailwind CSS</span>
+            <span class="skill-tag">Sass</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">Gutenberg Blocks</span>
+            <span class="skill-tag">ACF</span>
+            <span class="skill-tag">WP-CLI</span>
+            <span class="skill-tag">Customizer API</span>
+            <span class="skill-tag">Git & GitHub</span>
+            <span class="skill-tag">Bitbucket</span>
+            <span class="skill-tag">Figma (Basic)</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">GraphQL</span>
+            <span class="skill-tag">REST APIs</span>
+          </div>
+        </template>
+        <template x-if="lang === 'es'">
+          <div class="contents">
+            <span class="skill-tag">WordPress</span>
+            <span class="skill-tag">PHP</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Tailwind CSS</span>
+            <span class="skill-tag">Sass</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">Bloques Gutenberg</span>
+            <span class="skill-tag">ACF</span>
+            <span class="skill-tag">WP-CLI</span>
+            <span class="skill-tag">API del Personalizador</span>
+            <span class="skill-tag">Git & GitHub</span>
+            <span class="skill-tag">Bitbucket</span>
+            <span class="skill-tag">Figma (Básico)</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">GraphQL</span>
+            <span class="skill-tag">APIs REST</span>
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
+
+<!-- Contact Section -->
+<section class="px-6 lg:px-24 py-20 bg-[#0a192f]" id="contact" data-aos="fade-up">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl sm:text-4xl text-white font-bold mb-6" x-text="lang === 'en' ? 'Let’s Connect' : 'Conectemos'"></h2>
+    <p class="text-gray-400 mb-10 text-sm sm:text-base" x-text="lang === 'en' 
+      ? 'Interested in working together, collaborating, or just want to say hello? Feel free to reach out and I’ll get back to you as soon as possible.'
+      : '¿Interesado en trabajar juntos, colaborar o simplemente saludar? No dudes en contactarme y te responderé lo antes posible.'">
+    </p>
+    <a href="mailto:buritica1195@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 border border-teal-500 text-teal-300 rounded-full font-medium transition duration-300 hover:bg-teal-500 hover:text-white hover:shadow-lg hover:scale-105 transform">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m0 0l4 4m-4-4l4-4" />
+      </svg>
+      <span x-text="lang === 'en' ? 'Say Hello' : 'Di Hola'"></span>
+    </a>
+  </div>
+</section>
+
+  <!-- Footer -->
+  <footer class="bg-[#0a192f] text-gray-500 text-sm text-center py-8 border-t border-gray-800" data-aos="fade-up">
+    <div class="flex flex-col items-center gap-4">
+      <div class="flex space-x-6">
+        <a href="https://github.com/mburitica95" target="_blank" class="hover:text-teal-400 transition duration-300" aria-label="GitHub">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2.2c-3.2.7-3.9-1.6-3.9-1.6-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.1.1 1.6 1.1 1.6 1.1 1 .1.8 1.3 2.4 1.8.2-.8.5-1.3.8-1.6-2.5-.3-5.1-1.3-5.1-5.9 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.3a11.5 11.5 0 016 0c2.3-1.6 3.3-1.3 3.3-1.3.6 1.6.2 2.8.1 3.1.8.9 1.2 2 1.2 3.3 0 4.6-2.6 5.6-5.1 5.9.5.4.9 1.2.9 2.4v3.5c0 .4.3.8.8.6A10.99 10.99 0 0023.5 12c0-6.4-5.1-11.5-11.5-11.5z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/miguelburitica95/" target="_blank" class="hover:text-teal-400 transition duration-300" aria-label="LinkedIn">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5V24H0zM7.5 8h4.7v2.2h.1c.7-1.3 2.3-2.6 4.8-2.6 5.2 0 6.2 3.4 6.2 7.7V24h-5V16.2c0-1.9 0-4.3-2.6-4.3-2.6 0-3 2-3 4.1V24h-5z"/>
+          </svg>
+        </a>
+        <a href="mailto:miguelburitica95@gmail.com" class="hover:text-teal-400 transition duration-300" aria-label="Email">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 13.5l11.5-9h-23L12 13.5zM12 15.5L.5 6.5V21h23V6.5L12 15.5z"/>
+          </svg>
+        </a>
+        <a href="#top" class="hover:text-teal-400 transition duration-300" aria-label="Scroll to top">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 8l6 6H6z"/>
+          </svg>
+        </a>
+      </div>
+      <p x-text="lang === 'en' 
+        ? 'Designed & built by Miguel Buriticá — All rights reserved.' 
+        : 'Diseñado y desarrollado por Miguel Buriticá — Todos los derechos reservados.'">
+      </p>
+    </div>
+  </footer>
+
+
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
+  <script src="./assets/js/index.js"></script>
 </body>
 </html>

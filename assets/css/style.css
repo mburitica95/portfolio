@@ -1,0 +1,16 @@
+body {
+  background-color: #0a192f;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(600px at var(--x, 50%) var(--y, 50%), rgba(29, 160, 216, 0.15), transparent 80%);
+  z-index: 0;
+  transition: background 0.2s ease;
+}
